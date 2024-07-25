@@ -119,12 +119,12 @@ export default function Home() {
 
           }
         </form>
-        <div className="h-[70vh] border-[2px] w-[400px] relative rounded-[6px] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] overflow-auto">
+        <div className="max-h-[70vh]  border-[2px] w-[400px] relative rounded-[6px] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] overflow-auto">
           {
             loading === true ? <div className="w-[100%] text-center absolute top-[40%] text-[20px]">Loading...</div>
               : studentList.length > 0 ? studentList.map((item) => {
                 return (
-                  <div className="p-[16px] relative border-b-[1px] border-white mb-[16px]" key={item._id}>
+                  <div className="p-[16px] relative border-b-[1px] border-white" key={item._id}>
                     <div>name: {item.name}</div>
                     <div>email: {item.email}</div>
                     <div>phone: {item.phone}</div>
