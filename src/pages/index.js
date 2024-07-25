@@ -28,7 +28,7 @@ export default function Home() {
 
   const fetchStudents = () => {
     setLoading(true)
-    axios.get("http://localhost:4000/api/hello").then((data) => {
+    axios.get("/api/hello").then((data) => {
       setLoading(false)
       setStudentList(data.data);
       setStudentsData({
@@ -48,7 +48,7 @@ export default function Home() {
     e.preventDefault();
     setFormLoading(true)
     axios({
-      url: `http://localhost:4000/api/hello`,
+      url: `/api/hello`,
       method: "POST",
       data: studentsData,
       headers: {
@@ -67,7 +67,7 @@ export default function Home() {
 
   const onDelete = (id) => {
     axios({
-      url: `http://localhost:4000/api/hello`,
+      url: `/api/hello`,
       method: "DELETE",
       data: id,
       headers: {
@@ -86,7 +86,7 @@ export default function Home() {
     e.preventDefault();
     setFormLoading(true)
     axios({
-      url: `http://localhost:4000/api/hello`,
+      url: `/api/hello`,
       method: "PUT",
       data: studentsData,
       headers: {
