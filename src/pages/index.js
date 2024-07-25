@@ -7,7 +7,6 @@ const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   const [studentList, setStudentList] = useState([]);
-  const [id, setId] = useState("")
   const [isUpdate, setIsUpdate] = useState(false)
   const [loading, setLoading] = useState(false)
   const [formLoading, setFormLoading] = useState()
@@ -66,7 +65,7 @@ export default function Home() {
   }
 
 
-  const onDelete = (e) => {
+  const onDelete = (id) => {
     axios({
       url: `http://localhost:4000/api/hello`,
       method: "DELETE",
@@ -109,10 +108,10 @@ export default function Home() {
     >
       <div className="m-auto flex gap-[50px]">
         <form onSubmit={isUpdate === true ? onUpdate : handleSubmit} className="flex flex-col">
-          <input className="p-[16px] mb-[8px] text-black" value={studentsData.name} placeholder="Enter name" onChange={handleChange} name="name" />
-          <input className="p-[16px] mb-[8px] text-black" value={studentsData.email} placeholder="Enter email" onChange={handleChange} name="email" />
-          <input className="p-[16px] mb-[8px] text-black" value={studentsData.phone} placeholder="Enter phone" onChange={handleChange} name="phone" />
-          <input className="p-[16px] mb-[8px] text-black" value={studentsData.address} placeholder="Enter address" onChange={handleChange} name="address" />
+          <input className="p-[16px] mb-[8px] text-black rounded-[6px]" value={studentsData.name} placeholder="Enter name" onChange={handleChange} name="name" />
+          <input className="p-[16px] mb-[8px] text-black rounded-[6px]" value={studentsData.email} placeholder="Enter email" onChange={handleChange} name="email" />
+          <input className="p-[16px] mb-[8px] text-black rounded-[6px]" value={studentsData.phone} placeholder="Enter phone" onChange={handleChange} name="phone" />
+          <input className="p-[16px] mb-[8px] text-black rounded-[6px]" value={studentsData.address} placeholder="Enter address" onChange={handleChange} name="address" />
           {
             isUpdate === true ?
               <button disabled={formLoading} className="border-[1px] border-white p-[16px]" type="submit">{formLoading ? "Loading..." : "Update"}</button>
