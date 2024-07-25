@@ -7,7 +7,6 @@ const studentSchema = new mongoose.Schema({
         required: true,
         minlength: 5,
     },
-
     email: {
         type: String,
         required: true,
@@ -27,7 +26,11 @@ const studentSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-});
+}
+    , {
+        timestamps: true
+    }
+);
 
 //creating a new collection
 const Student = mongoose.models.Student || mongoose.model("Student", studentSchema);

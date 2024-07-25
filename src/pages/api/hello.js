@@ -13,6 +13,13 @@ export default async function handler(req, res) {
       break;
     case 'POST':
       handlePOST(req, res)
+      break;
+    case 'DELETE':
+      handleDeleteById(req, res)
+      break;
+    case 'PUT':
+      handlePUT(req, res)
+      break;
     default:
       break;
   }
@@ -22,7 +29,7 @@ export default async function handler(req, res) {
 const handleGET = async (req, res) => {
   // const currentUser = await (req);
   try {
-    const studentsData = await Student.find();
+    const studentsData = await Student.find().sort({ createdAt: -1 });
     res.send(studentsData);
   } catch (err) {
     res.send(err);
@@ -30,27 +37,34 @@ const handleGET = async (req, res) => {
 };
 
 const handlePOST = async (req, res) => {
-  const { image } = req.body
-  // try {
-  //   if (image) {
-  //     let response = await axios.get(image, { responseType: 'arraybuffer' });
-  //     let returnedB64 = Buffer.from(response.data).toString('base64');
-  //     const result = `data:image/png;base64,${returnedB64}`
-  //     res.status(200).json({
-  //       data: result,
-  //     });
-  //   }
-  // } catch (err) {
-  //   console.log(err)
-  //   res.status(200).json({
-  //     data: err,
-  //   });
-  // }
-
   try {
     const user = new Student(req.body);
     const createUser = await user.save();
     res.status(201).send(createUser);
+  } catch (error) {
+    console.log(error)
+    res.status(400).send(error);
+  }
+};
+
+const handleDeleteById = async (req, res) => {
+  try {
+    const user = await Student.findByIdAndDelete(req.body)
+    res.status(201);
+    res.send(user)
+  } catch (err) {
+    console.log(err)
+    res.status(400).send(err);
+  }
+}
+
+const handlePUT = async (req, res) => {
+  const { id, name, email, phone, address } = req.body
+  try {
+    const user = await Student.findByIdAndUpdate(id, { name, email, phone, address });
+    // const createUser = await user.save();
+    res.status(201)
+    res.send(user);
   } catch (error) {
     console.log(error)
     res.status(400).send(error);
