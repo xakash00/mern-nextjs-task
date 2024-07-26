@@ -1,5 +1,5 @@
 // import { NextApiRequest, NextApiResponse } from 'next';
-import Student from 'components/lib/model';
+import Student from 'components/models/model';
 import dbConnect from '../../lib/dbConnect';
 
 export default async function handler(req, res) {
@@ -43,7 +43,8 @@ const handlePOST = async (req, res) => {
     res.status(201).send(createUser);
   } catch (error) {
     console.log(error)
-    res.status(400).send(error);
+    res.status(400)
+    res.send("error");
   }
 };
 
