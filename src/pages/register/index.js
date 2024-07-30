@@ -35,3 +35,17 @@ const Register = () => {
 }
 
 export default Register
+
+export function getServerSideProps(ctx) {
+    const { token } = (ctx.req.cookies);
+    if (token) {
+        return {
+            redirect: {
+                destination: "/"
+            }
+
+        }
+
+    }
+    return { props: { data: null } }
+}

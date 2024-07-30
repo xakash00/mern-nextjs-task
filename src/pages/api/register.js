@@ -27,7 +27,7 @@ const handlePOST = async (req, res) => {
 
             const token = await registerUser.generateAuthToken(res); //middleware
 
-            // res.cookie("utoken ", token, {
+            // cookies().set("x23", token, {
             //     expires: new Date(Date.now() + 60000),
             //     httpOnly: true,
             // });

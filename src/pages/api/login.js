@@ -1,5 +1,7 @@
 // import { NextApiRequest, NextApiResponse } from 'next';
+
 const bcrypt = require("bcryptjs");
+import Cookies from 'js-cookie';
 import dbConnect from '../../lib/dbConnect';
 import Register from 'components/models/register';
 export default async function handler(req, res) {
@@ -27,6 +29,7 @@ const handlePOST = async (req, res) => {
         const isMatch = await bcrypt.compare(password, user.password);
 
         const token = await user.generateAuthToken();
+
 
         if (isMatch) {
             res.status(201).send({ message: "Login Successful", data: { accessToken: token, email: user.email, id: user.id } });

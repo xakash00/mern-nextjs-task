@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
+import Cookies from 'js-cookie';
+import { isJWT } from 'validator';
+import { redirect } from 'next/dist/server/api-utils';
 
-const BuildRsume = () => {
+const BuildResume = () => {
     const [details, setDetails] = useState([])
-    const accessToken = typeof window !== "undefined" ? localStorage.getItem("accessToken") : ""
     const fetchResume = () => {
         axios.get(`/api/resume`, {
             headers: {
-                "Authorization": accessToken
+                "Authorization": Cookies.get("token")
             }
         }).then((data) => {
             setDetails(data.data)
@@ -44,7 +46,7 @@ const BuildRsume = () => {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": accessToken
+                "Authorization": Cookies.get("token")
             }
         }).then((data) => {
             fetchResume();
@@ -72,4 +74,19 @@ const BuildRsume = () => {
     )
 }
 
-export default BuildRsume
+export default BuildResume
+
+
+export function getServerSideProps(ctx) {
+    const { token } = (ctx.req.cookies);
+    if (!token) {
+        return {
+            redirect: {
+                destination: "/login"
+            }
+
+        }
+
+    }
+    return { props: { data: null } }
+}

@@ -1,4 +1,5 @@
 import axios from 'axios'
+import Cookies from 'js-cookie'
 import { useRouter } from 'next/router'
 import React from 'react'
 import { useForm } from 'react-hook-form'
@@ -17,9 +18,8 @@ const Login = () => {
                 "Content-Type": "application/json"
             }
         }).then((data) => {
-            if (typeof window !== "undefined") {
-                const { accessToken } = data.data.data
-                localStorage.setItem("accessToken", accessToken)
+            if (globalThis) {
+                Cookies.set('token', data.data.data.accessToken, { expires: 7 })
             }
             router.push("/build-resume")
 
@@ -39,3 +39,18 @@ const Login = () => {
 }
 
 export default Login
+
+
+export function getServerSideProps(ctx) {
+    const { token } = (ctx.req.cookies);
+    if (token) {
+        return {
+            redirect: {
+                destination: "/"
+            }
+
+        }
+
+    }
+    return { props: { data: null } }
+}
