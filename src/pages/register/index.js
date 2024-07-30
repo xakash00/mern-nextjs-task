@@ -1,8 +1,10 @@
 import axios from 'axios'
+import { useRouter } from 'next/router'
 import React from 'react'
 import { useForm } from 'react-hook-form'
 
 const Register = () => {
+    const router = useRouter()
     const { register, handleSubmit } = useForm({
         defaultValues: { email: "", password: "", confirmpassword: "" }
     })
@@ -15,6 +17,7 @@ const Register = () => {
                 "Content-Type": "application/json"
             }
         }).then((data) => {
+            router.push("/login")
         }).catch(err => { })
     }
     return (

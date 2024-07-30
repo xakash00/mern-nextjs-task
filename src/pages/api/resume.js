@@ -1,6 +1,9 @@
 // import { NextApiRequest, NextApiResponse } from 'next';
 import Resume, { create } from 'components/models/resumeModel';
 import dbConnect from '../../lib/dbConnect';
+const jwt = require("jsonwebtoken");
+
+import verifyToken from 'components/lib/middleware/auth';
 
 export default async function handler(req, res) {
     const { method } = req;
@@ -27,20 +30,31 @@ export default async function handler(req, res) {
 
 
 const handleGET = async (req, res) => {
-    // const currentUser = await (req);
+    const { authorization } = req.headers
     try {
-        const resume = await Resume.find();
+        const decoded = jwt.decode(authorization);
+        const resume = await Resume.find({ created_by: decoded?._id });
         res.status(200)
         res.send(resume)
     } catch (err) {
-        res.status(400)
-        res.send(err);
+        console.error('Error decoding token:', err);
     }
+    // try {
+    //     const resume = await Resume.find();
+    //     res.status(200)
+    //     res.send(resume)
+    // } catch (err) {
+    //     // res.status(400)
+    //     res.send(err);
+    // }
 };
 
 const handlePOST = async (req, res) => {
+    const { authorization } = req.headers
+
+    const decoded = jwt.decode(authorization);
     try {
-        const resume = new Resume(example);
+        const resume = new Resume({ ...example, ...{ created_by: decoded?._id } });
         const createResume = await resume.save();
         res.status(201)
         res.send(createResume)

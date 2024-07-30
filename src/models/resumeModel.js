@@ -1,12 +1,13 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
 import { v4 as uuidv4 } from 'uuid';
+const short = require('short-uuid');
 
 const resumeSchema = new mongoose.Schema({
-    id: {
+    _id: {
         type: String,
         required: true,
-        default: () => uuidv4(),
+        default: short().new,
         unique: [true, "Duplicate Id"],
     },
     full_name: {
@@ -54,11 +55,16 @@ const resumeSchema = new mongoose.Schema({
     projects: {
         type: Array,
         required: true
+    },
+    created_by: {
+        type: String,
+        required: true
     }
 
 }
     , {
-        timestamps: true
+        timestamps: true,
+        _id: false
     }
 );
 

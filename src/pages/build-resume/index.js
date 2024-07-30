@@ -1,11 +1,15 @@
-import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import axios from 'axios'
 
 const BuildRsume = () => {
     const [details, setDetails] = useState([])
-
+    const accessToken = typeof window !== "undefined" ? localStorage.getItem("accessToken") : ""
     const fetchResume = () => {
-        axios.get(`/api/resume`).then((data) => {
+        axios.get(`/api/resume`, {
+            headers: {
+                "Authorization": accessToken
+            }
+        }).then((data) => {
             setDetails(data.data)
         }).catch((err) => {
             console.log(err)
@@ -33,13 +37,32 @@ const BuildRsume = () => {
         })
 
     }
+
+    const uploadResume = () => {
+        axios({
+            url: `/api/resume`,
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": accessToken
+            }
+        }).then((data) => {
+            fetchResume();
+            // setFormLoading(false);
+        }).catch(err => {
+            console.log(err);
+            // setFormLoading(false)
+        })
+    }
     return (
         <div>
+
+            <button onClick={() => { uploadResume() }}>Upload</button>
             {
                 details.map((item, index) => {
                     return (
                         <div className='border-[1px] border-black p-[10px] m-auto' key={item.id}>
-                            <div className=''>{JSON.stringify(item, 2, null)}</div>
+                            <div className=''><pre><code>{JSON.stringify(item, null, 1)}</code></pre></div>
                             <button onClick={() => { onDelete(item._id) }} className='bg-black p-[3px] text-white'>Delete</button>
                         </div>
                     )
