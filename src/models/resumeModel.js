@@ -10,6 +10,10 @@ const resumeSchema = new mongoose.Schema({
         default: short().new,
         unique: [true, "Duplicate Id"],
     },
+    document_name: {
+        type: String,
+        required: true
+    },
     full_name: {
         type: String,
         required: true,
@@ -40,7 +44,7 @@ const resumeSchema = new mongoose.Schema({
         type: Array,
         required: true
     },
-    employement_history: {
+    employment_history: {
         type: Array,
         required: true
     },

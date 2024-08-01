@@ -1,9 +1,8 @@
 // import { NextApiRequest, NextApiResponse } from 'next';
-import Resume, { create } from 'components/models/resumeModel';
+import Resume from 'components/models/resumeModel';
 import dbConnect from '../../lib/dbConnect';
 const jwt = require("jsonwebtoken");
 
-import verifyToken from 'components/lib/middleware/auth';
 
 export default async function handler(req, res) {
     const { method } = req;
@@ -54,7 +53,7 @@ const handlePOST = async (req, res) => {
 
     const decoded = jwt.decode(authorization);
     try {
-        const resume = new Resume({ ...example, ...{ created_by: decoded?._id } });
+        const resume = new Resume({ ...req.body, ...{ created_by: decoded?._id } });
         const createResume = await resume.save();
         res.status(201)
         res.send(createResume)
@@ -80,37 +79,3 @@ const handlePUT = async (req, res) => {
 };
 
 
-const example = {
-    full_name: "Akash Singh",
-    email: "akash@gmail.com",
-    phone: 8319025678,
-    address: "this street, that city",
-    linked_in: "linked_in.com",
-    github_id: "github.com",
-    professional_summary: "Lorem ipsum",
-    employement_history: [{
-        company_name: "First",
-        duration: "present",
-        role: "",
-        description: ""
-    }],
-    education_history: [{
-        institute: "",
-        year: "",
-        gpa: "",
-        major: ""
-    },
-    {
-        institute: "",
-        year: "",
-        gpa: "",
-        major: ""
-    }
-    ],
-    skills: ["html", "mjml", "Javscript"],
-    languages: ["English", "Hindi"],
-    projects: [{
-        name: "todo-app",
-        description: "lorem ipsum"
-    }]
-}

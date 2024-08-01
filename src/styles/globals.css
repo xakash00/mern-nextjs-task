@@ -28,3 +28,10 @@ body {
     text-wrap: balance;
   }
 }
+
+.react-responsive-modal-modal {
+  width: 1000px;
+  height: auto;
+  padding: 0px !important;
+  border-radius: 8px;
+}

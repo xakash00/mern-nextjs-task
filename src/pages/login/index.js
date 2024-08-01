@@ -1,7 +1,7 @@
+import React from 'react'
 import axios from 'axios'
 import Cookies from 'js-cookie'
 import { useRouter } from 'next/router'
-import React from 'react'
 import { useForm } from 'react-hook-form'
 
 const Login = () => {

@@ -1,11 +1,17 @@
-import React, { useEffect, useState } from 'react'
-import axios from 'axios'
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 import Cookies from 'js-cookie';
-import { isJWT } from 'validator';
-import { redirect } from 'next/dist/server/api-utils';
+import { Modal } from "react-responsive-modal";
+import "react-responsive-modal/styles.css";
+import MakeResume from 'components/components/make-resume';
 
 const BuildResume = () => {
-    const [details, setDetails] = useState([])
+    const [show, setShow] = useState(false)
+    const [details, setDetails] = useState([]);
+
+    const handleOpen = () => setShow(true)
+    const handleClose = () => setShow(false)
+
     const fetchResume = () => {
         axios.get(`/api/resume`, {
             headers: {
@@ -40,10 +46,11 @@ const BuildResume = () => {
 
     }
 
-    const uploadResume = () => {
+    const uploadResume = (data) => {
         axios({
             url: `/api/resume`,
             method: "POST",
+            data: data,
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": Cookies.get("token")
@@ -57,9 +64,14 @@ const BuildResume = () => {
         })
     }
     return (
-        <div>
+        <>
+            <button onClick={() => { handleOpen() }}>Upload</button>
+            <Modal open={show} onClose={handleClose}>
+                <div className='relative p-[16px] bg-white  w-full'>
+                    <MakeResume {...{ uploadResume }} />
+                </div>
+            </Modal>
 
-            <button onClick={() => { uploadResume() }}>Upload</button>
             {
                 details.map((item, index) => {
                     return (
@@ -70,7 +82,7 @@ const BuildResume = () => {
                     )
                 })
             }
-        </div>
+        </>
     )
 }
 
