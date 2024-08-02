@@ -1,9 +1,11 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { HYDRATE, createWrapper } from 'next-redux-wrapper';
 import { photoReducer } from "./slices/imageListSlice";
+import formReducer from './slices/formReducer';
 
 const reducers = combineReducers({
     photos: photoReducer,
+    form: formReducer
 })
 
 const mainReducer = (state, action) => {

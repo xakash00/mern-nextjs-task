@@ -15,7 +15,7 @@ const ChooseTemplate = () => {
 
     return (
         <div>
-            <button onClick={() => { console.log("adjfbkb") }} ref={ref} type="button">Click me!</button>
+
         </div>
     )
 }
