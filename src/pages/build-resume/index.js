@@ -66,8 +66,8 @@ const BuildResume = () => {
     return (
         <>
             <button onClick={() => { handleOpen() }}>Upload</button>
-            <Modal open={show} onClose={handleClose}>
-                <div className='relative p-[16px] bg-white  w-full'>
+            <Modal center={true} open={show} onClose={handleClose}>
+                <div className='relative px-[20px] h-[600px] overflow-auto bg-white  w-full'>
                     <MakeResume {...{ uploadResume }} />
                 </div>
             </Modal>

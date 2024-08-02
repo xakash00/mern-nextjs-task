@@ -27,9 +27,10 @@ export const selectStyles = {
         ...base,
         fontSize: '16px',
         fontWeight: 'bold',
-        borderRadius: '8px',
-        padding: '6px 5px',
-        border: '1px solid #21274F !important',
+        borderRadius: '0px',
+        padding: '6px 0px',
+        border: "none",
+        borderBottom: '1px solid #50bf97',
         boxShadow: 'none',
         '&:focus': {
             border: '0 !important',
@@ -37,7 +38,14 @@ export const selectStyles = {
     }),
     multiValue: (base) => ({
         ...base,
-        backgroundColor: 'blue',
+        backgroundColor: '#50bf97',
         color: 'white',
+    }),
+    multiValueLabel: (styles, { data }) => ({
+        ...styles,
+        color: "white",
+        fontStyle: "Lato",
+        fontWeight: 400,
+        letterSpacing: "0.75px"
     }),
 }
