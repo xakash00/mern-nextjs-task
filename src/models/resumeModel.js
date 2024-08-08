@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
-import { v4 as uuidv4 } from 'uuid';
 const short = require('short-uuid');
 
 const resumeSchema = new mongoose.Schema({
@@ -9,6 +8,10 @@ const resumeSchema = new mongoose.Schema({
         required: true,
         default: short().new,
         unique: [true, "Duplicate Id"],
+    },
+    current_role: {
+        type: String,
+        required: true
     },
     document_name: {
         type: String,
@@ -23,7 +26,7 @@ const resumeSchema = new mongoose.Schema({
         required: true,
     },
     phone: {
-        type: Number,
+        type: String,
         required: true,
         min: 10
     },

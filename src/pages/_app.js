@@ -3,6 +3,8 @@ import { Provider } from "react-redux";
 import { wrapper } from "components/redux";
 import { useRouter } from "next/router";
 import "components/styles/globals.css";
+import Cookies from "js-cookie";
+import axios from "axios";
 
 export default function App({ Component, ...rest }) {
   const { store, props } = wrapper.useWrappedStore(rest);
@@ -28,5 +30,18 @@ export default function App({ Component, ...rest }) {
     //eslint-disable-next-line
   }, []);
 
+  axios.interceptors.response.use(
+    (response) => {
+      console.log(response)
+      return response;
+    },
+    (error) => {
+      Router.push("/login")
+      Cookies.remove("token")
+      return Promise.reject(error);
+    }
+  );
+
   return <Provider store={store}><Component {...pageProps} /></Provider>;
 }
+

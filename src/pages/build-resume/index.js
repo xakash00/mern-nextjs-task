@@ -4,17 +4,20 @@ import Cookies from 'js-cookie';
 import { Modal } from "react-responsive-modal";
 import "react-responsive-modal/styles.css";
 import MakeResume from 'components/components/make-resume';
-
+import styles from "../../styles/makeResume.module.css"
+import { ResumeOne, ResumeThree, ResumeTwo } from 'components/components/resume-templates/resumes';
+import { useRouter } from 'next/router';
 const BuildResume = () => {
+    const router = useRouter("")
     const [show, setShow] = useState(false)
     const [details, setDetails] = useState([]);
-
     const handleOpen = () => setShow(true)
     const handleClose = () => setShow(false)
 
     const fetchResume = () => {
         axios.get(`/api/resume`, {
             headers: {
+                "Content-Type": "application/json",
                 "Authorization": Cookies.get("token")
             }
         }).then((data) => {
@@ -34,7 +37,8 @@ const BuildResume = () => {
             method: "DELETE",
             data: id,
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": Cookies.get("token")
             }
         }).then((data) => {
             fetchResume();
@@ -60,18 +64,72 @@ const BuildResume = () => {
             // setFormLoading(false);
         }).catch(err => {
             console.log(err);
-            // setFormLoading(false)
+            // setFormLoading(false)    
+        })
+    }
+
+    useEffect(() => {
+        axios({
+            url: `/api/resume-by-id`,
+            method: "GET",
+            // data: data,
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": Cookies.get("token")
+            }
+        }).then((data) => {
+            console.log(data)
+            // setFormLoading(false);
+        }).catch(err => {
+            console.log(err);
+            // setFormLoading(false)    
+        })
+    })
+
+    const _logout = () => {
+        axios({
+            url: `/api/logout`,
+            method: "GET",
+            // data: data,
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": Cookies.get("token")
+            }
+        }).then((data) => {
+            Cookies.remove("token")
+            router.push("/login")
+            // setFormLoading(false);
+        }).catch(err => {
+            console.log(err);
+            // setFormLoading(false)    
         })
     }
     return (
         <>
             <button onClick={() => { handleOpen() }}>Upload</button>
+            <button onClick={() => { _logout() }}>Logout</button>
             <Modal center={true} open={show} onClose={handleClose}>
-                <div className='relative px-[20px] h-[600px] overflow-auto bg-white  w-full'>
+                <div className={`relative px-[20px] h-[800px] ${styles.no_scrollbar} overflow-y-auto bg-white w-full`}>
                     <MakeResume {...{ uploadResume }} />
                 </div>
             </Modal>
-
+            <div className='flex items-center gap-[16px] md:flex-wrap sm:flex-wrap  justify-center max-w-[1280px] w-full m-auto'>
+                <div className={`${styles.responsive_iframe} md:m-0 lg:m-0 sm:m-auto overflow-hidden h-[700px] border-1 border-black`}>
+                    <div className='border-[1px] border-black p-[32px]'>
+                        <ResumeOne />
+                    </div>
+                </div>
+                <div className={`${styles.responsive_iframe} md:m-0 lg:m-0 sm:m-auto overflow-hidden h-[700px] border-1 border-black`}>
+                    <div className='border-[1px] border-black p-[32px]'>
+                        <ResumeTwo />
+                    </div>
+                </div>
+                <div className={`${styles.responsive_iframe} md:m-0 lg:m-0 sm:m-auto overflow-hidden h-[700px] border-1 border-black`}>
+                    <div className='border-[1px] border-black p-[32px]'>
+                        <ResumeThree />
+                    </div>
+                </div>
+            </div>
             {
                 details.map((item, index) => {
                     return (
