@@ -526,158 +526,155 @@ export const ResumeTwo = () => {
     )
 }
 
-export const ResumeThree = () => {
+export const ResumeThree = (props) => {
+    const { data } = props
+    console.log(data)
     return (
-        <main class="font-jost hyphens-manual">
+        <main className="font-jost hyphens-manual">
 
-            <div class="max-w-3xl p-3 mx-auto my-auto print:border-0 page print:max-w-letter print:max-h-letter print:mx-0 print:my-o lg:h-letter md:max-w-letter md:h-letter xsm:p-8 sm:p-9 md:p-16 lg:mt-6 rounded-2xl print:bg-white">
+            <div className="max-w-3xl p-3 mx-auto my-auto print:border-0 page print:max-w-letter print:max-h-letter print:mx-0 print:my-o lg:h-letter md:max-w-letter md:h-letter xsm:p-8 sm:p-9 md:p-16 lg:mt-6 rounded-2xl print:bg-white">
 
-                <header class="inline-flex items-baseline justify-between w-full mb-3 align-top border-b-8">
-                    <div class="block">
-                        <h1 class="mb-0 text-5xl font-bold text-gray-750">
-                            Rahul Patel
+                <header className="inline-flex items-baseline justify-between w-full mb-3 align-top border-b-8">
+                    <div className="block">
+                        <h1 className="mb-0 capitalize text-5xl font-bold text-gray-750">
+                            {data?.full_name}
                         </h1>
 
-                        <h2 class="m-0 ml-2 text-2xl font-semibold text-gray-700 leading-snugish">
-                            Front End Developer
+                        <h2 className="pt-[8px] text-[18px] capitalize font-semibold text-gray-700 leading-snugish">
+                            {data?.current_role}
                         </h2>
 
 
-                        <h3 class="m-0 mt-2 ml-2 mb-2 font-semibold text-md text-gray-550 leading-snugish">
-                            Gujarat
+                        <h3 className="m-0 mt-2 mb-2 font-semibold text-md text-gray-550 leading-snugish">
+                            {data?.address}
                         </h3>
-                    </div>
-
-                    <div class="justify-between px-3 mt-0 mb-5 text-3xl font-bold leading-none text-gray-200 initials-container bg-gray-750 print:bg-black" >
-                        <div class="text-center initial">R</div>
-                        <div class="text-center initial">P</div>
                     </div>
                 </header>
 
 
-                <div class="col-gap-16 md:col-count-2 print:col-count-2 md:h-letter-col-full print:h-letter-col-full col-fill-balance">
+                <div className="col-gap-16 md:col-count-2 print:col-count-2 md:h-letter-col-full print:h-letter-col-full col-fill-balance">
 
-                    <section class="pb-4 mt-4 first:mt-0">
+                    <section className="pb-4 mt-4 first:mt-0">
 
-                        <div class="break-inside-avoid">
-                            <section class="mb-2 border-b-2 break-inside-avoid">
-                                <ul class="list-inside pr-7">
-                                    <li
-                                        class="mt-1 leading-normal text-black transition duration-100 ease-in text-gray-550 text-md hover:text-gray-700 print:">
-                                        <a href="https://rahulpatel.me" class="group">
-                                            <span class="mr-2 text-xl font-semibold text-gray-700 leading-snugish">
+                        <div className="break-inside-avoid">
+                            <section className="mb-2 border-b-2 pb-[16px] break-inside-avoid">
+                                <ul className="list-inside pr-7">
+                                    {data?.portfolio && <li
+                                        className="mt-1 leading-normal text-black transition duration-100 ease-in text-gray-550 text-md hover:text-gray-700 print:">
+                                        <a href="https://rahulpatel.me" className="group">
+                                            <span className="mr-2 text-xl font-semibold text-gray-700 leading-snugish">
                                                 Portfolio:
                                             </span>
-                                            rahulpatel.me
+                                            {data?.portfolio}
                                             <span
-                                                class="inline-block font-normal text-black transition duration-100 ease-in text-gray-550 print:text-black group-hover:text-gray-700 print:">
+                                                className="inline-block font-normal text-black transition duration-100 ease-in text-gray-550 print:text-black group-hover:text-gray-700 print:">
                                                 ↗
                                             </span>
                                         </a>
-                                    </li>
-                                    <li
-                                        class="mt-1 leading-normal transition duration-100 ease-in text-gray-550 text-md hover:text-gray-700">
-                                        <a href="https://github.com/Rahulpatel" class="group">
-                                            <span class="mr-5 text-xl font-semibold text-gray-700 leading-snugish">
+                                    </li>}
+                                    {data?.github_id && <li
+                                        className="mt-1 leading-normal transition duration-100 ease-in text-gray-550 text-md hover:text-gray-700">
+                                        <a href="https://github.com/Rahulpatel" className="group">
+                                            <span className="mr-5 text-xl font-semibold text-gray-700 leading-snugish">
                                                 Github:
                                             </span>
-                                            Rahulpatel
+                                            {data?.github_id}
                                             <span
-                                                class="inline-block font-normal text-black transition duration-100 ease-in text-gray-550 print:text-black group-hover:text-gray-700 print:">
+                                                className="inline-block font-normal text-black transition duration-100 ease-in text-gray-550 print:text-black group-hover:text-gray-700 print:">
                                                 ↗
                                             </span>
                                         </a>
-                                    </li>
+                                    </li>}
 
-                                    <li class="mt-1 leading-normal transition duration-100 ease-in text-gray-550 text-md hover:text-gray-700">
-                                        <a href="mailto:demo@gmail.com" class="group">
-                                            <span class="mr-8 text-xl font-semibold text-gray-700 leading-snugish">
+                                    {data?.email && <li className="mt-1 leading-normal transition duration-100 ease-in text-gray-550 text-md hover:text-gray-700">
+                                        <a href="mailto:demo@gmail.com" className="group">
+                                            <span className="mr-8 text-xl font-semibold text-gray-700 leading-snugish">
                                                 Email:
                                             </span>
-                                            demo@gmail.com
-                                            <span class="inline-block font-normal transition duration-100 ease-in text-gray-550 print:text-black group-hover:text-gray-700">
+                                            {data?.email}
+                                            <span className="inline-block font-normal transition duration-100 ease-in text-gray-550 print:text-black group-hover:text-gray-700">
                                                 ↗
                                             </span>
                                         </a>
-                                    </li>
-                                    <li class="mt-1 leading-normal transition duration-100 ease-in text-gray-550 text-md hover:text-gray-700">
-                                        <a href="tel:+9106753674">
-                                            <span class="mr-5 text-xl font-semibold text-gray-700 leading-snugish">
+                                    </li>}
+                                    {data?.phone && <li className="mt-1 leading-normal transition duration-100 ease-in text-gray-550 text-md hover:text-gray-700">
+                                        <a href={`tel:{${data.phone}}`}>
+                                            <span className="mr-5 text-xl font-semibold text-gray-700 leading-snugish">
                                                 Phone:
                                             </span>
-                                            +91(123)456-7890
+                                            {data?.phone}
                                         </a>
-                                    </li>
+                                    </li>}
                                 </ul>
                             </section>
                         </div>
                     </section>
 
-                    <section class="pb-4 mt-4 border-b-4 first:mt-0">
+                    <section className="pb-4 mt-4 border-b-4 first:mt-0">
 
-                        <div class="break-inside-avoid">
-                            <h2 class="mb-2 text-xl font-bold tracking-widest text-gray-700 print:font-normal">
+                        <div className="break-inside-avoid">
+                            <h2 className="mb-2 text-xl font-bold tracking-widest text-gray-700 print:font-normal">
                                 SUMMARY
                             </h2>
 
-                            <section class="mb-2 break-inside-avoid">
-                                <p class="mt-2 leading-normal text-gray-700 text-md">
-                                    Front-End Developer with proven experience at Netizens Technologies in helping companies create and maintain a better code base for reusability. Passionate about learning and development .Eager to tackle more complex problems and continue to find ways to maximize user efficiency.
+                            <section className="mb-2 break-inside-avoid">
+                                <p className="mt-2 leading-normal text-gray-700 text-md">
+                                    {data?.professional_summary}
                                 </p>
                             </section>
                         </div>
                     </section>
 
-                    <section class="pb-4 mt-4 border-b-4 first:mt-0">
+                    <section className="pb-4 mt-4 border-b-4 first:mt-0">
 
-                        <div class="break-inside-avoid">
-                            <h2 class="mb-2 text-xl font-bold tracking-widest text-gray-700 print:font-normal">
+                        <div className="break-inside-avoid">
+                            <h2 className="mb-2 text-xl font-bold tracking-widest text-gray-700 print:font-normal">
                                 EXPERIENCE
                             </h2>
 
-                            <section class="mb-2 break-inside-avoid">
+                            <section className="mb-2 break-inside-avoid">
                                 <header>
-                                    <h3 class="text-xl font-semibold text-gray-650 leading-snugish">
+                                    <h3 className="text-xl font-semibold text-gray-650 leading-snugish">
                                         Front End Developer ( 2 Years )
                                     </h3>
-                                    <p class="leading-normal text-md text-gray-550">
+                                    <p className="leading-normal text-md text-gray-550">
                                         April 2021 – April 2023 | ABC Technologies
                                     </p>
                                 </header>
-                                <ul class="mt-2.1 text-md text-gray-700 leading-normal">
+                                <ul className="mt-2.1 text-md text-gray-700 leading-normal">
                                     <li>
-                                        <span class="transform -translate-y-px select-none text-gray-550">
+                                        <span className="transform -translate-y-px select-none text-gray-550">
                                             &#x2022;{" "}
                                         </span>
                                         Designed Front End web experiences for clients With W3C Standards
                                     </li>
                                     <li>
-                                        <span class="transform -translate-y-px select-none text-gray-550">
+                                        <span className="transform -translate-y-px select-none text-gray-550">
                                             &#x2022;{" "}
                                         </span>
                                         Create Responsive Site With W3C Standards.
                                     </li>
                                     <li>
-                                        <span class="transform -translate-y-px select-none text-gray-550">
+                                        <span className="transform -translate-y-px select-none text-gray-550">
                                             &#x2022;{" "}
                                         </span>
                                         Actively Engaged with clients about specifications and
                                         designs
                                     </li>
                                     <li>
-                                        <span class="transform -translate-y-px select-none text-gray-550">
+                                        <span className="transform -translate-y-px select-none text-gray-550">
                                             &#x2022;{" "}
                                         </span>
                                         Crafted literate, Comprehensive Source Code.
                                     </li>
                                     <li>
-                                        <span class="transform -translate-y-px select-none text-gray-550">
+                                        <span className="transform -translate-y-px select-none text-gray-550">
                                             &#x2022;{" "}
                                         </span>
                                         Provided commentary to improve maintainability
                                     </li>
                                     <li>
-                                        <span class="transform -translate-y-px select-none text-gray-550">
+                                        <span className="transform -translate-y-px select-none text-gray-550">
                                             &#x2022;{" "}
                                         </span>
                                         Add Site Base Animation Using Keyframe and SVG Animation
@@ -688,54 +685,54 @@ export const ResumeThree = () => {
                         </div>
                     </section>
 
-                    <section class="pb-4 mt-4 first:mt-0">
+                    <section className="pb-4 mt-4 first:mt-0">
 
-                        <div class="break-inside-avoid">
-                            <h2 class="mb-2 text-xl font-bold tracking-widest text-gray-700 print:font-normal">
+                        <div className="break-inside-avoid">
+                            <h2 className="mb-2 text-xl font-bold tracking-widest text-gray-700 print:font-normal">
                                 EDUCATION
                             </h2>
 
-                            <section class="pb-4 mt-4 mb-4 border-b-2 break-inside-avoid">
+                            <section className="pb-4 mt-4 mb-4 border-b-2 break-inside-avoid">
                                 <header>
-                                    <h3 class="flex-grow text-xl font-semibold text-gray-700 leading-snugish">
+                                    <h3 className="flex-grow text-xl font-semibold text-gray-700 leading-snugish">
                                         University Of India
                                     </h3>
-                                    <p class="leading-normal text-md text-gray-550">
+                                    <p className="leading-normal text-md text-gray-550">
                                         2017 – 2020 | Master Of Computer Application
                                     </p>
                                 </header>
-                                <p class="mt-1 leading-normal text-md text-gray-650">
-                                    <span class="font-semibold text-gray-700 text-md leading-snugish">
+                                <p className="mt-1 leading-normal text-md text-gray-650">
+                                    <span className="font-semibold text-gray-700 text-md leading-snugish">
                                         Major:
                                     </span>
                                     Computer Science
                                 </p>
-                                <p class="leading-normal text-gray-700 text-md">
-                                    <span class="font-semibold text-gray-700 text-md leading-snugish">
+                                <p className="leading-normal text-gray-700 text-md">
+                                    <span className="font-semibold text-gray-700 text-md leading-snugish">
                                         CGPA:
                                     </span>
                                     5.9
                                 </p>
                             </section>
 
-                            <section class="pb-4 mt-4 mb-4 border-b-2 break-inside-avoid">
+                            <section className="pb-4 mt-4 mb-4 border-b-2 break-inside-avoid">
                                 <header>
-                                    <h3 class="flex-grow text-xl font-semibold text-gray-700 leading-snugish">
+                                    <h3 className="flex-grow text-xl font-semibold text-gray-700 leading-snugish">
                                         College For BCA
                                     </h3>
-                                    <p class="leading-normal text-md text-gray-550">
+                                    <p className="leading-normal text-md text-gray-550">
                                         2014 – 2017 | Bechlor of Computer Applications
                                     </p>
                                 </header>
-                                <p class="mt-1 leading-normal text-md text-gray-650">
-                                    <span class="font-semibold text-gray-700 text-md leading-snugish">
+                                <p className="mt-1 leading-normal text-md text-gray-650">
+                                    <span className="font-semibold text-gray-700 text-md leading-snugish">
                                         Major:
                                     </span>
                                     Computer Science
                                 </p>
-                                <p class="mt-1 leading-normal text-md text-gray-650"></p>
-                                <p class="leading-normal text-gray-700 text-md">
-                                    <span class="font-semibold text-gray-700 text-md leading-snugish">
+                                <p className="mt-1 leading-normal text-md text-gray-650"></p>
+                                <p className="leading-normal text-gray-700 text-md">
+                                    <span className="font-semibold text-gray-700 text-md leading-snugish">
                                         CGPA:
                                     </span>
                                     6.09
@@ -743,17 +740,17 @@ export const ResumeThree = () => {
                             </section>
 
 
-                            <section class="pb-4 mt-4 mb-4 break-inside-avoid ">
+                            <section className="pb-4 mt-4 mb-4 break-inside-avoid ">
                                 <header>
-                                    <h3 class="flex-grow text-xl font-semibold text-gray-700 leading-snugish">
+                                    <h3 className="flex-grow text-xl font-semibold text-gray-700 leading-snugish">
                                         Codify Academy
                                     </h3>
-                                    <p class="leading-normal text-md text-gray-550">
+                                    <p className="leading-normal text-md text-gray-550">
                                         2018 | Certificate
                                     </p>
                                 </header>
-                                <p class="mt-1 leading-normal text-md text-gray-650">
-                                    <span class="font-semibold text-gray-700 text-md leading-snugish">
+                                <p className="mt-1 leading-normal text-md text-gray-650">
+                                    <span className="font-semibold text-gray-700 text-md leading-snugish">
                                         Subject:
                                     </span>
                                     Front End Development
@@ -762,111 +759,111 @@ export const ResumeThree = () => {
                         </div>
                     </section>
 
-                    <section class="pb-4 mt-4 border-b-4 first:mt-0">
-                        <div class="break-inside-avoid">
+                    <section className="pb-4 mt-4 border-b-4 first:mt-0">
+                        <div className="break-inside-avoid">
 
-                            <h2 class="mb-2 text-xl font-bold tracking-widest text-gray-700 print:font-normal">
+                            <h2 className="mb-2 text-xl font-bold tracking-widest text-gray-700 print:font-normal">
                                 PROJECTS
                             </h2>
 
-                            <section class="pb-4 mb-4 border-b-2 break-inside-avoid">
+                            <section className="pb-4 mb-4 border-b-2 break-inside-avoid">
                                 <header>
-                                    <h3 class="text-xl font-semibold text-gray-700 leading-snugish">
-                                        <a href="#!" class="group">
+                                    <h3 className="text-xl font-semibold text-gray-700 leading-snugish">
+                                        <a href="#!" className="group">
                                             Shipper (Transportation App)
                                             <span
-                                                class="inline-block mr-3 font-normal transition duration-100 ease-in text-gray-550 print:text-black group-hover:text-gray-700">
+                                                className="inline-block mr-3 font-normal transition duration-100 ease-in text-gray-550 print:text-black group-hover:text-gray-700">
                                                 ↗
                                             </span>
                                         </a>
                                         <span
-                                            class="inline-block font-normal transition duration-100 ease-in text-gray-550 print:text-black group-hover:text-gray-700">
+                                            className="inline-block font-normal transition duration-100 ease-in text-gray-550 print:text-black group-hover:text-gray-700">
                                             <a href="https://github.com/Rahulpatel/rahulpatel-Personal-Site">
-                                                <i class="fab fa-github"></i>
+                                                <i className="fab fa-github"></i>
                                             </a>
                                         </span>
                                     </h3>
-                                    <p class="leading-normal text-md text-gray-550">
+                                    <p className="leading-normal text-md text-gray-550">
                                         2017 | Android, Java, HTML, CSS, PHP
                                     </p>
                                 </header>
-                                <p class="mt-2.1 text-md text-gray-700 leading-normal">
+                                <p className="mt-2.1 text-md text-gray-700 leading-normal">
                                     Shippers fulfill an important part of the supply chain. Whether by trucking, or freight train, or air, shippers deliver both packages and cost-savings to their dedicated customers.
                                 </p>
                             </section>
 
-                            <section class="pb-4 mb-4 border-b-2 break-inside-avoid">
+                            <section className="pb-4 mb-4 border-b-2 break-inside-avoid">
                                 <header>
-                                    <h3 class="text-xl font-semibold text-gray-700 leading-snugish">
-                                        <a href="#!" class="group">
+                                    <h3 className="text-xl font-semibold text-gray-700 leading-snugish">
+                                        <a href="#!" className="group">
                                             Speech Recognization Application
                                             <span
-                                                class="inline-block mr-3 font-normal transition duration-100 ease-in text-gray-550 print:text-black group-hover:text-gray-700">
+                                                className="inline-block mr-3 font-normal transition duration-100 ease-in text-gray-550 print:text-black group-hover:text-gray-700">
                                                 ↗
                                             </span>
                                         </a>
-                                        <span class="inline-block font-normal transition duration-100 ease-in text-gray-550 print:text-black group-hover:text-gray-700">
+                                        <span className="inline-block font-normal transition duration-100 ease-in text-gray-550 print:text-black group-hover:text-gray-700">
                                             <a href="https://github.com/Rahulpatel/mern-contact-keeper">
-                                                <i class="fab fa-github"></i>
+                                                <i className="fab fa-github"></i>
                                             </a>
                                         </span>
                                     </h3>
-                                    <p class="leading-normal text-md text-gray-550">
+                                    <p className="leading-normal text-md text-gray-550">
                                         2020 | Asp.Net,HTML,CSS
                                     </p>
                                 </header>
-                                <p class="mt-2.1 text-md text-gray-700 leading-normal">
+                                <p className="mt-2.1 text-md text-gray-700 leading-normal">
                                     We are working on an ASP.NET web application which requires the functionality to recognize user’s voice from client side. Is it possible to record this voice and compare it with a predefined text which is in the database at server end, in technology like Asp.net.
                                 </p>
                             </section>
 
-                            <section class="pb-4 mb-4 border-b-2 break-inside-avoid">
+                            <section className="pb-4 mb-4 border-b-2 break-inside-avoid">
                                 <header>
-                                    <h3 class="text-xl font-semibold text-gray-700 leading-snugish">
-                                        <a href="#!" class="group">
+                                    <h3 className="text-xl font-semibold text-gray-700 leading-snugish">
+                                        <a href="#!" className="group">
                                             NGO Website
                                             <span
-                                                class="inline-block mr-3 font-normal transition duration-100 ease-in text-gray-550 print:text-black group-hover:text-gray-700">
+                                                className="inline-block mr-3 font-normal transition duration-100 ease-in text-gray-550 print:text-black group-hover:text-gray-700">
                                                 ↗
                                             </span>
                                         </a>
-                                        <span class="inline-block font-normal transition duration-100 ease-in text-gray-550 print:text-black group-hover:text-gray-700">
+                                        <span className="inline-block font-normal transition duration-100 ease-in text-gray-550 print:text-black group-hover:text-gray-700">
                                             <a href="https://github.com/Rahulpatel/crazy-wise-gatsby-starter">
-                                                <i class="fab fa-github"></i>
+                                                <i className="fab fa-github"></i>
                                             </a>
                                         </span>
                                     </h3>
-                                    <p class="leading-normal text-md text-gray-550">
+                                    <p className="leading-normal text-md text-gray-550">
                                         2020 | HTML, CSS, SCSS, Javascript, SQL, PHP
                                     </p>
                                 </header>
-                                <p class="mt-2.1 text-md text-gray-700 leading-normal">
+                                <p className="mt-2.1 text-md text-gray-700 leading-normal">
                                     Smile Foundation, an Indian social development organization, is directly benefitting over 15 lakh children and their families every year. We have more than 400 live welfare projects on education, healthcare, livelihood, and women’s empowerment in over 2,000 remote villages and urban slums across 25 states of India.
                                 </p>
                             </section>
 
-                            <section class="mb-2 break-inside-avoid">
+                            <section className="mb-2 break-inside-avoid">
                                 <header>
-                                    <h3 class="text-xl font-semibold text-gray-700 leading-snugish">
-                                        <a href="https://github.com/Rahulpatel/Opitx/releases" class="group">
+                                    <h3 className="text-xl font-semibold text-gray-700 leading-snugish">
+                                        <a href="https://github.com/Rahulpatel/Opitx/releases" className="group">
                                             Opitx Markdown Editor
                                             <span
-                                                class="inline-block mr-3 font-normal transition duration-100 ease-in text-gray-550 print:text-black group-hover:text-gray-700">
+                                                className="inline-block mr-3 font-normal transition duration-100 ease-in text-gray-550 print:text-black group-hover:text-gray-700">
                                                 ↗
                                             </span>
                                         </a>
                                         <span
-                                            class="inline-block font-normal transition duration-100 ease-in text-gray-550 print:text-black group-hover:text-gray-700">
+                                            className="inline-block font-normal transition duration-100 ease-in text-gray-550 print:text-black group-hover:text-gray-700">
                                             <a href="https://github.com/Rahulpatel/Opitx/releases">
-                                                <i class="fab fa-github"></i>
+                                                <i className="fab fa-github"></i>
                                             </a>
                                         </span>
                                     </h3>
-                                    <p class="leading-normal text-md text-gray-550">
+                                    <p className="leading-normal text-md text-gray-550">
                                         2019 | Electron, React, SCSS
                                     </p>
                                 </header>
-                                <p class="mt-2.1 text-md text-gray-700 leading-normal">
+                                <p className="mt-2.1 text-md text-gray-700 leading-normal">
                                     An answer to a personal problem with Markdown editors avalable
                                     on Linux which provided a less than transparent process of
                                     saving in user defined locations that evolved into a Markdown
@@ -877,45 +874,45 @@ export const ResumeThree = () => {
                         </div>
                     </section>
 
-                    <section class="pb-4 mt-4 first:mt-0">
+                    <section className="pb-4 mt-4 first:mt-0">
 
-                        <div class="break-inside-avoid">
-                            <h2 class="mb-2 text-xl font-bold tracking-widest text-gray-700 print:font-normal">
+                        <div className="break-inside-avoid">
+                            <h2 className="mb-2 text-xl font-bold tracking-widest text-gray-700 print:font-normal">
                                 SKILLS
                             </h2>
 
-                            <section class="mb-2 break-inside-avoid">
+                            <section className="mb-2 break-inside-avoid">
                                 <header>
-                                    <h3 class="text-xl font-semibold text-gray-700 leading-snugish">
+                                    <h3 className="text-xl font-semibold text-gray-700 leading-snugish">
                                         Front-End Developer
                                     </h3>
                                 </header>
 
-                                <div class="my-1 last:pb-1">
-                                    <ul class="flex flex-wrap text-sm2 leading-relaxed -mr-1.6 - mt-2.1">
-                                        <li class="text-md px-2.5 py-0.5 mr-1.6  text-gray-200 leading-relaxed print:bg-white print:border-inset bg-gray-250 mb-3">
+                                <div className="my-1 last:pb-1">
+                                    <ul className="flex flex-wrap text-sm2 leading-relaxed -mr-1.6 - mt-2.1">
+                                        <li className="text-md px-2.5 py-0.5 mr-1.6  text-gray-200 leading-relaxed print:bg-white print:border-inset bg-gray-250 mb-3">
                                             HTML5
                                         </li>
-                                        <li class="text-md px-2.5 py-0.5 mr-1.6  text-gray-200 leading-relaxed print:bg-white print:border-inset bg-gray-250 mb-3">
+                                        <li className="text-md px-2.5 py-0.5 mr-1.6  text-gray-200 leading-relaxed print:bg-white print:border-inset bg-gray-250 mb-3">
                                             CSS3
                                         </li>
-                                        <li class="text-md px-2.5 py-0.5 mr-1.6  text-gray-200 leading-relaxed print:bg-white print:border-inset bg-gray-250 mb-3">
+                                        <li className="text-md px-2.5 py-0.5 mr-1.6  text-gray-200 leading-relaxed print:bg-white print:border-inset bg-gray-250 mb-3">
                                             SCSS
                                         </li>
 
-                                        <li class="text-md px-2.5 py-0.5 mr-1.6  text-gray-200 leading-relaxed print:bg-white print:border-inset bg-gray-250 mb-3">
+                                        <li className="text-md px-2.5 py-0.5 mr-1.6  text-gray-200 leading-relaxed print:bg-white print:border-inset bg-gray-250 mb-3">
                                             Tailwind.css
                                         </li>
-                                        <li class="text-md px-2.5 py-0.5 mr-1.6  text-gray-200 leading-relaxed print:bg-white print:border-inset bg-gray-250 mb-3">
+                                        <li className="text-md px-2.5 py-0.5 mr-1.6  text-gray-200 leading-relaxed print:bg-white print:border-inset bg-gray-250 mb-3">
                                             Javascript
                                         </li>
-                                        <li class="text-md px-2.5 py-0.5 mr-1.6  text-gray-200 leading-relaxed print:bg-white print:border-inset bg-gray-250 mb-3">
+                                        <li className="text-md px-2.5 py-0.5 mr-1.6  text-gray-200 leading-relaxed print:bg-white print:border-inset bg-gray-250 mb-3">
                                             PHP
                                         </li>
-                                        <li class="text-md px-2.5 py-0.5 mr-1.6  text-gray-200 leading-relaxed print:bg-white print:border-inset bg-gray-250 mb-3">
+                                        <li className="text-md px-2.5 py-0.5 mr-1.6  text-gray-200 leading-relaxed print:bg-white print:border-inset bg-gray-250 mb-3">
                                             JQuery
                                         </li>
-                                        <li class="text-md px-2.5 py-0.5 mr-1.6  text-gray-200 leading-relaxed print:bg-white print:border-inset bg-gray-250 mb-3">
+                                        <li className="text-md px-2.5 py-0.5 mr-1.6  text-gray-200 leading-relaxed print:bg-white print:border-inset bg-gray-250 mb-3">
                                             BOOTSTRAP
                                         </li>
                                     </ul>

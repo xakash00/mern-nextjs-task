@@ -3,11 +3,17 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import { Modal } from "react-responsive-modal";
 import "react-responsive-modal/styles.css";
-import MakeResume from 'components/components/make-resume';
-import styles from "../../styles/makeResume.module.css"
-import { ResumeOne, ResumeThree, ResumeTwo } from 'components/components/resume-templates/resumes';
+import styles from "../../styles/makeResume.module.css";
 import { useRouter } from 'next/router';
+// import MakeResume from 'components/components/make-resume';
+import dynamic from 'next/dynamic';
 const BuildResume = () => {
+    const [Component, setComponent] = useState();
+    useEffect(() => {
+        setComponent(dynamic(() => import(`components/components/make-resume`)));
+    }, [])
+
+
     const router = useRouter("")
     const [show, setShow] = useState(false)
     const [details, setDetails] = useState([]);
@@ -78,7 +84,7 @@ const BuildResume = () => {
                 "Authorization": Cookies.get("token")
             }
         }).then((data) => {
-            console.log(data)
+            // console.log(data)    
             // setFormLoading(false);
         }).catch(err => {
             console.log(err);
@@ -108,25 +114,25 @@ const BuildResume = () => {
         <>
             <button onClick={() => { handleOpen() }}>Upload</button>
             <button onClick={() => { _logout() }}>Logout</button>
-            <Modal center={true} open={show} onClose={handleClose}>
+            {show && <Modal center={true} open={show} onClose={handleClose}>
                 <div className={`relative px-[20px] h-[800px] ${styles.no_scrollbar} overflow-y-auto bg-white w-full`}>
-                    <MakeResume {...{ uploadResume }} />
+                    <Component {...{ uploadResume }} />
                 </div>
-            </Modal>
+            </Modal>}
             <div className='flex items-center gap-[16px] md:flex-wrap sm:flex-wrap  justify-center max-w-[1280px] w-full m-auto'>
                 <div className={`${styles.responsive_iframe} md:m-0 lg:m-0 sm:m-auto overflow-hidden h-[700px] border-1 border-black`}>
                     <div className='border-[1px] border-black p-[32px]'>
-                        <ResumeOne />
+                        {/* <ResumeOne /> */}
                     </div>
                 </div>
                 <div className={`${styles.responsive_iframe} md:m-0 lg:m-0 sm:m-auto overflow-hidden h-[700px] border-1 border-black`}>
                     <div className='border-[1px] border-black p-[32px]'>
-                        <ResumeTwo />
+                        {/* <ResumeTwo /> */}
                     </div>
                 </div>
                 <div className={`${styles.responsive_iframe} md:m-0 lg:m-0 sm:m-auto overflow-hidden h-[700px] border-1 border-black`}>
                     <div className='border-[1px] border-black p-[32px]'>
-                        <ResumeThree />
+                        {/* <ResumeThree /> */}
                     </div>
                 </div>
             </div>

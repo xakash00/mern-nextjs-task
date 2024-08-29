@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import "components/styles/globals.css";
 import Cookies from "js-cookie";
 import axios from "axios";
+import { SessionProvider } from "next-auth/react";
 
 export default function App({ Component, ...rest }) {
   const { store, props } = wrapper.useWrappedStore(rest);
@@ -32,7 +33,7 @@ export default function App({ Component, ...rest }) {
 
   axios.interceptors.response.use(
     (response) => {
-      console.log(response)
+      // console.log(response)
       return response;
     },
     (error) => {
@@ -42,6 +43,6 @@ export default function App({ Component, ...rest }) {
     }
   );
 
-  return <Provider store={store}><Component {...pageProps} /></Provider>;
+  return <Provider store={store}><SessionProvider session={session}><Component {...pageProps} /></SessionProvider></Provider>;
 }
 

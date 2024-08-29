@@ -1,18 +1,27 @@
-import React, { useRef, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { useFieldArray, Controller, useForm } from 'react-hook-form'
+'use client';
+
+import { useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useFieldArray, Controller, useForm } from 'react-hook-form';
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as Yup from "yup"
-import CreatableSelect from 'react-select/creatable'
-import { FloatingInput, FloatingSelect, FloatingTextArrea } from './floatingInput'
-import { goBack, nextStep, updateFormData } from 'components/redux/slices/formReducer'
-import { phoneRegExp, selectStyles } from 'components/helperFuncs'
+import * as Yup from "yup";
+import CreatableSelect from 'react-select/creatable';
+import 'froala-editor/css/froala_style.min.css';
+import 'froala-editor/js/plugins.pkgd.min.js';
+import 'froala-editor/css/froala_editor.pkgd.min.css';
+import FroalaEditorComponent from 'react-froala-wysiwyg';
+import { FloatingInput, FloatingSelect, FloatingTextArrea } from './floatingInput';
+import { goBack, nextStep, updateFormData } from 'components/redux/slices/formReducer';
+import { phoneRegExp, selectStyles } from 'components/helperFuncs';
 import { DeleteIcon, PlusIcon } from 'components/ui-elements/svgs';
+import { ResumeThree } from './resume-templates/resumes';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+
 const MakeResume = (props) => {
     const { uploadResume } = props;
     const dispatch = useDispatch();
-    const { formData, step } = useSelector(store => store.form);
-
+    const { step } = useSelector(store => store.form);
     const validationSchema = Yup.object().shape({
         document_name: Yup.string().required("This field is required !"),
         full_name: Yup.string().required("This field is required !"),
@@ -46,46 +55,59 @@ const MakeResume = (props) => {
     }
     return (
         <div>
-            <form className="flex flex-col justify-between items-center h-[100%]" onSubmit={handleSubmit(onSubmit)}>
-                <div className='flex flex-col m-auto rounded-[8px]  justify-center items-center max-w-[900px] w-full'>
-                    <div className={`${step === 1 ? "block" : "hidden"} w-full relative`}>
-                        <div className='text-black text-[20px] font-semibold leading-[28px] w-full text-left py-[20px]'>Add Personal Details</div>
-                        <div className='bg-white border-[1px] border-boundary p-[24px] rounded-[8px]'>
-                            <FloatingInput error={errors.document_name} label="Enter a Title" register={register("document_name")} name='document_name' />
-                            <FloatingInput label="Full Name" error={errors.full_name} register={register("full_name")} name={"full_name"} />
-                            <div className='flex items-center gap-[16px]'>
-                                <FloatingInput error={errors.current_role} label="Your current Role" register={register("current_role")} name='current_role' />
-                                <FloatingInput label="E-mail" error={errors.email} register={register("email")} name="email" />
+            <div className={`${step === 1 ? "block" : "hidden"} w-full relative`}>
+                <form className="flex flex-col justify-between items-center h-[100%]" onSubmit={handleSubmit(onSubmit)}>
+                    <div className='flex flex-col m-auto rounded-[8px]  justify-center items-center max-w-[900px] w-full'>
+                        <div className='w-full'>
+                            <div className='text-black text-[20px] font-semibold leading-[28px] w-full text-left py-[20px]'>Add Personal Details</div>
+                            <div className='bg-white border-[1px] border-boundary p-[24px] rounded-[8px]'>
+                                <FloatingInput error={errors.document_name} label="Enter a Title" register={register("document_name")} name='document_name' />
+                                <FloatingInput label="Full Name" error={errors.full_name} register={register("full_name")} name={"full_name"} />
+                                <div className='flex items-center gap-[16px]'>
+                                    <FloatingInput error={errors.current_role} label="Your current Role" register={register("current_role")} name='current_role' />
+                                    <FloatingInput label="E-mail" error={errors.email} register={register("email")} name="email" />
+                                </div>
+                                <div className='flex w-full items-center gap-[16px]'>
+                                    <FloatingInput error={errors.phone} label="Phone Number" register={register("phone")} name="phone" />
+                                    <FloatingInput error={errors.address} label="City" register={register("address")} name="address" />
+                                </div>
+                                <div className='flex w-full items-center gap-[16px]'>
+                                    <FloatingInput error={errors.linked_in} label="Your Linkedin" register={register("linked_in")} name="linked_in" />
+                                    <FloatingInput error={errors.github_id} label="Your Github" register={register("github_id")} name="github_id" />
+                                </div>
+                                {/* <FloatingTextArrea count={watch("professional_summary").length} max={800} error={errors.professional_summary} label="Professional Summary" register={register("professional_summary")} name="professional_summary" /> */}
+                                <Controller
+                                    name="professional_summary"
+                                    rules={{ required: true }}
+                                    control={control}
+                                    defaultValue=""
+                                    render={({ field }) => (
+                                        <ReactQuill className='quill' value={field.value} onChange={field.onChange} />)}
+                                />
                             </div>
-                            <div className='flex w-full items-center gap-[16px]'>
-                                <FloatingInput error={errors.phone} label="Phone Number" register={register("phone")} name="phone" />
-                                <FloatingInput error={errors.address} label="City" register={register("address")} name="address" />
+                        </div>
+                        <div className='fixed bottom-0 w-full'>
+                            <div className='flex  w-full items-center'>
+                                <button className='w-full bg-primary text-white font-semibold tracking-wider  text-[18px]  p-[16px]' type="submit">{"Next"}</button>
                             </div>
-                            <div className='flex w-full items-center gap-[16px]'>
-                                <FloatingInput error={errors.linked_in} label="Your Linkedin" register={register("linked_in")} name="linked_in" />
-                                <FloatingInput error={errors.github_id} label="Your Github" register={register("github_id")} name="github_id" />
-                            </div>
-                            <FloatingTextArrea count={watch("professional_summary").length} max={800} error={errors.professional_summary} label="Professional Summary" register={register("professional_summary")} name="professional_summary" />
                         </div>
                     </div>
-                    <div className='fixed bottom-0 w-full'>
-                        <div className='flex  w-full items-center'>
-                            <button className='w-full bg-primary text-white font-semibold tracking-wider  text-[18px]  p-[16px]' type="submit">{"Next"}</button>
-                        </div>
-                    </div>
-                </div>
-            </form >
+                </form >
+            </div>
             <div className={`${step === 2 ? "block pb-[80px]" : "hidden"} w-full`}>
-                <EmploymentDetails />
+                <EmploymentDetails {...{ dispatch }} />
             </div>
             <div className={`${step === 3 ? "block pb-[80px]" : "hidden"} w-full`}>
-                <EducationDetails />
+                <EducationDetails {...{ dispatch }} />
             </div>
             <div className={`${step === 4 ? "block pb-[80px]" : "hidden"} w-full`}>
-                <Projects />
+                <Projects {...{ dispatch }} />
             </div>
             <div className={`${step === 5 ? "block" : "hidden"} w-full`}>
-                <LanguageAndSkills {...{ uploadResume }} />
+                <LanguageAndSkills {...{ dispatch }} />
+            </div>
+            <div className={`${step === 6 ? "block" : "hidden"} w-full`}>
+                <FinalOutput {...{ uploadResume, dispatch }} />
             </div>
         </div >
     )
@@ -95,9 +117,9 @@ export default MakeResume
 
 
 
-const EmploymentDetails = () => {
+const EmploymentDetails = (props) => {
     const ref = useRef()
-    const dispatch = useDispatch();
+    const { dispatch } = props;
     const { formData } = useSelector(store => store.form);
 
     const integerValidation = (value) => {
@@ -182,9 +204,9 @@ const EmploymentDetails = () => {
 }
 
 
-const EducationDetails = () => {
+const EducationDetails = (props) => {
     const ref = useRef()
-    const dispatch = useDispatch();
+    const { dispatch } = props;
     const { formData } = useSelector(store => store.form);
     const { handleSubmit, watch, register, control, reset, setValue, formState: { errors } } = useForm({
         defaultValues: {
@@ -210,11 +232,11 @@ const EducationDetails = () => {
                         return (
                             <div key={item.id} className={`flex w-full flex-col items-center ${index !== 0 ? "pt-[40px]" : "pt-[0px]"}`}>
                                 {education_history_fields?.length > 1 && <div className='text-black text-[20px] font-semibold leading-[28px] w-full text-left pb-[10px]'>#{index + 1}</div>}
-                                <FloatingInput label="Institute Name" register={register(`education_history.${index}.institute`)} />
+                                <FloatingInput label="Institute Name" name={`education_history.${index}.institute`} register={register(`education_history.${index}.institute`)} />
                                 <div className='flex items-center w-full gap-[16px]'>
                                     <FloatingSelect control={control} label="Graduation Year" name={`education_history.${index}.year`} register={register(`education_history.${index}.year`)} />
-                                    <FloatingInput label="GPA/Percentage" register={register(`education_history.${index}.gpa`)} />
-                                    <FloatingInput label="Major" register={register(`education_history.${index}.major`)} />
+                                    <FloatingInput label="GPA/Percentage" name={`education_history.${index}.gpa`} register={register(`education_history.${index}.gpa`)} />
+                                    <FloatingInput label="Major" name={`education_history.${index}.major`} register={register(`education_history.${index}.major`)} />
                                 </div>
                                 <div className='flex w-full item-center justify-between'>
                                     <button type="button" onClick={() => {
@@ -240,9 +262,9 @@ const EducationDetails = () => {
     )
 }
 
-const Projects = () => {
+const Projects = (props) => {
     const ref = useRef()
-    const dispatch = useDispatch();
+    const { dispatch } = props;
     const { formData } = useSelector(store => store.form);
     const { handleSubmit, watch, register, control, reset, setValue, formState: { errors } } = useForm({
         defaultValues: {
@@ -270,8 +292,8 @@ const Projects = () => {
                         return (
                             <div key={item.id} className={`flex w-full flex-col items-center ${index !== 0 ? "pt-[40px]" : "pt-[0px]"}`}>
                                 {projects_fields?.length > 1 && <div className='text-black text-[20px] font-semibold leading-[28px] w-full text-left pb-[10px]'>#{index + 1}</div>}
-                                <FloatingInput label="Project Name" register={register(`projects.${index}.name`)} />
-                                <FloatingTextArrea label="Description" register={register(`projects.${index}.description`)} />
+                                <FloatingInput label="Project Name" register={register(`projects.${index}.name`)} name={`projects.${index}.name`} />
+                                <FloatingTextArrea label="Description" register={register(`projects.${index}.description`)} name={`projects.${index}.description`} />
                                 <div className='flex w-full item-center justify-between pt-[16px]'>
                                     <button type="button" onClick={() => {
                                         projects_append({ name: "", description: "" });
@@ -298,8 +320,7 @@ const Projects = () => {
 
 
 const LanguageAndSkills = (props) => {
-    const { uploadResume } = props
-    const dispatch = useDispatch();
+    const { dispatch } = props;
     const { formData } = useSelector(store => store.form);
     const { handleSubmit, watch, register, control, reset, setValue, formState: { errors } } = useForm({
         defaultValues: {
@@ -317,9 +338,8 @@ const LanguageAndSkills = (props) => {
         })
 
         dispatch(updateFormData({ ...formData, ...{ skills }, ...{ languages } }))
-        uploadResume(formData)
-
-
+        // uploadResume(formData)
+        dispatch(nextStep())
     }
     return (
         <form className='flex flex-col justify-between items-center h-[100%]' onSubmit={handleSubmit(onSubmit)}>
@@ -364,8 +384,96 @@ const LanguageAndSkills = (props) => {
             <div className='fixed bottom-0 w-full'>
                 <div className='flex  w-full items-center'>
                     <button className='w-full p-[16px] bg-primary text-white font-semibold tracking-wider text-[18px] ' type="button" onClick={() => { dispatch(goBack()) }} >{"Back"}</button>
-                    <button className='w-full p-[16px] bg-primary text-white font-semibold tracking-wider text-[18px] ' type="submit">{"Submit"}</button>
-                </div></div>
+                    <button className='w-full p-[16px] bg-primary text-white font-semibold tracking-wider text-[18px] ' type="submit">{"Next"}</button>
+                </div>
+            </div>
         </form>
     )
+}
+
+const FinalOutput = (props) => {
+    const { formData } = useSelector(store => store.form);
+
+    const { dispatch } = props
+    return (
+        <>
+            <div>
+                {/* <ResumeThree {...{ data }} /> */}
+                <div className='fixed bottom-0 w-full'>
+                    <div className='flex  w-full items-center'>
+                        <button className='w-full p-[16px] bg-primary text-white font-semibold tracking-wider text-[18px] ' type="button" onClick={() => { dispatch(goBack()) }} >{"Back"}</button>
+                        <button className='w-full p-[16px] bg-primary text-white font-semibold tracking-wider text-[18px] ' type="submit">{"Next"}</button>
+                    </div>
+                </div>
+            </div>
+
+        </>
+    )
+}
+
+
+
+const data = {
+    "document_name": "Resume 1",
+    "full_name": "Akash Singh",
+    "current_role": "web dev",
+    "email": "akash@gmail.com",
+    "phone": "8511044136",
+    "address": "this address",
+    "linked_in": "wdw",
+    "github_id": "adsasdsa",
+    "portfolio": "akash.com",
+    "professional_summary": "lorem ipsum",
+    "employment_history": [
+        {
+            "description": "loremipsum",
+            "role": "web",
+            "duration": 2,
+            "company_name": "ff"
+        },
+        {
+            "description": "loremipsum",
+            "role": "frontend",
+            "duration": 3,
+            "company_name": "three"
+        }
+    ],
+    "education_history": [
+        {
+            "institute": "",
+            "year": "2018",
+            "gpa": "",
+            "major": ""
+        },
+        {
+            "institute": "",
+            "year": "2018",
+            "gpa": "",
+            "major": ""
+        },
+        {
+            "institute": "ggsks",
+            "year": "2014",
+            "gpa": "68",
+            "major": "pcm"
+        }
+    ],
+    "projects": [
+        {
+            "name": "todo",
+            "description": "lorem ipsum"
+        },
+        {
+            "name": "website",
+            "description": "lorem ipsum"
+        }
+    ],
+    "skills": [
+        "react",
+        "node"
+    ],
+    "languages": [
+        "english",
+        "hindi"
+    ]
 }
